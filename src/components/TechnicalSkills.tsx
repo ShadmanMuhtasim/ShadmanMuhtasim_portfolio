@@ -1,125 +1,141 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import {
-  Server,
-  Cpu,
-  Code,
-  Layout,
-  Database,
-  Terminal,
-  CheckSquare,
-  Sparkles,
-} from 'lucide-react';
-import { skillCategories } from '../data/skills';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Server, Layout, Cpu, Wrench, Database, Code2, Sparkles } from 'lucide-react';
+import { skillsList } from '../data/skills';
+import type { SkillCategoryType } from '../types';
+
+type FilterCategory = 'All' | SkillCategoryType;
+
+const categories: { label: FilterCategory; display: string; icon: React.FC<{ className?: string }> }[] = [
+  { label: 'All', display: 'All', icon: Sparkles },
+  { label: 'Backend', display: 'Backend & APIs', icon: Server },
+  { label: 'Frontend', display: 'Frontend', icon: Layout },
+  { label: 'AI/LLM', display: 'AI / LLM', icon: Cpu },
+  { label: 'Databases', display: 'Databases & ORM', icon: Database },
+  { label: 'Tools', display: 'Tools & DevOps', icon: Wrench },
+  { label: 'Languages', display: 'Languages', icon: Code2 },
+];
+
+const categoryBadgeStyles: Record<SkillCategoryType, { dot: string; borderHover: string }> = {
+  Backend: {
+    dot: 'bg-sky-500',
+    borderHover: 'hover:border-sky-500/40 hover:text-sky-600 dark:hover:text-sky-400',
+  },
+  Frontend: {
+    dot: 'bg-emerald-500',
+    borderHover: 'hover:border-emerald-500/40 hover:text-emerald-600 dark:hover:text-emerald-400',
+  },
+  'AI/LLM': {
+    dot: 'bg-indigo-500',
+    borderHover: 'hover:border-indigo-500/40 hover:text-indigo-600 dark:hover:text-indigo-400',
+  },
+  Databases: {
+    dot: 'bg-rose-500',
+    borderHover: 'hover:border-rose-500/40 hover:text-rose-600 dark:hover:text-rose-400',
+  },
+  Tools: {
+    dot: 'bg-amber-500',
+    borderHover: 'hover:border-amber-500/40 hover:text-amber-600 dark:hover:text-amber-400',
+  },
+  Languages: {
+    dot: 'bg-purple-500',
+    borderHover: 'hover:border-purple-500/40 hover:text-purple-600 dark:hover:text-purple-400',
+  },
+};
 
 export const TechnicalSkills: React.FC = () => {
-  const [selectedCategory, setSelectedCategory] = useState<string>('All');
+  const [selectedCategory, setSelectedCategory] = useState<FilterCategory>('All');
 
-  const getCategoryIcon = (category: string) => {
-    switch (category) {
-      case 'Backend & Frameworks':
-        return <Server className="w-4 h-4 text-sky-500" />;
-      case 'AI & LLM Engineering':
-        return <Cpu className="w-4 h-4 text-indigo-400" />;
-      case 'Languages':
-        return <Code className="w-4 h-4 text-amber-500" />;
-      case 'Frontend':
-        return <Layout className="w-4 h-4 text-emerald-500" />;
-      case 'Databases & ORM':
-        return <Database className="w-4 h-4 text-rose-500" />;
-      case 'Tools & DevOps':
-        return <Terminal className="w-4 h-4 text-cyan-500" />;
-      case 'Testing':
-        return <CheckSquare className="w-4 h-4 text-purple-500" />;
-      default:
-        return <Sparkles className="w-4 h-4 text-sky-500" />;
-    }
-  };
-
-  const filteredCategories =
+  const filteredSkills =
     selectedCategory === 'All'
-      ? skillCategories
-      : skillCategories.filter((c) => c.category === selectedCategory);
+      ? skillsList
+      : skillsList.filter((skill) => skill.category === selectedCategory);
 
   return (
-    <section id="skills" className="py-16 md:py-20 border-t border-slate-200/80 dark:border-zinc-850">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="skills" className="py-24 sm:py-32 border-t border-slate-200/80 dark:border-zinc-800/80">
+      <div className="max-w-5xl mx-auto px-6">
         {/* Section Heading */}
-        <div className="flex items-center gap-3 mb-8">
-          <span className="font-mono text-sm font-semibold text-sky-600 dark:text-sky-400">02.</span>
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-zinc-100">
-            Technical Skills
-          </h2>
-          <div className="h-px bg-slate-200 dark:bg-zinc-800 flex-1 ml-4" />
+        <div className="mb-14">
+          <div className="flex items-center gap-3 mb-3">
+            <span className="font-mono text-sm font-semibold text-sky-600 dark:text-sky-400">01.</span>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-zinc-100">
+              Skills &amp; Technologies
+            </h2>
+            <div className="h-px bg-slate-200 dark:bg-zinc-800 flex-1 ml-4" />
+          </div>
+          <p className="text-base sm:text-lg text-slate-600 dark:text-zinc-400 max-w-2xl leading-relaxed">
+            Technologies I use to build backend services, full-stack systems, and AI applications.
+          </p>
         </div>
 
-        {/* Category Filter Pills */}
-        <div className="flex flex-wrap gap-2 mb-10 pb-2">
-          <button
-            type="button"
-            onClick={() => setSelectedCategory('All')}
-            className={`px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all duration-150 ${
-              selectedCategory === 'All'
-                ? 'bg-sky-600 dark:bg-sky-500 text-white shadow-sm'
-                : 'bg-white dark:bg-zinc-900/80 text-slate-600 dark:text-zinc-400 border border-slate-200 dark:border-zinc-800 hover:border-slate-300 dark:hover:border-zinc-700'
-            }`}
-          >
-            All Skills
-          </button>
-          {skillCategories.map((cat) => {
-            const isSelected = selectedCategory === cat.category;
+        {/* Category Filter Tabs */}
+        <div className="flex flex-wrap gap-2 mb-10 p-1.5 rounded-2xl bg-slate-100/80 dark:bg-zinc-900/60 border border-slate-200/80 dark:border-zinc-800/80 w-fit">
+          {categories.map(({ label, display, icon: Icon }) => {
+            const isSelected = selectedCategory === label;
             return (
               <button
-                key={cat.category}
+                key={label}
                 type="button"
-                onClick={() => setSelectedCategory(cat.category)}
-                className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all duration-150 ${
+                onClick={() => setSelectedCategory(label)}
+                className={`relative px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium transition-colors duration-200 flex items-center gap-2 ${
                   isSelected
-                    ? 'bg-sky-600 dark:bg-sky-500 text-white shadow-sm'
-                    : 'bg-white dark:bg-zinc-900/80 text-slate-600 dark:text-zinc-400 border border-slate-200 dark:border-zinc-800 hover:border-slate-300 dark:hover:border-zinc-700'
+                    ? 'text-slate-900 dark:text-zinc-100'
+                    : 'text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-zinc-200'
                 }`}
               >
-                {getCategoryIcon(cat.category)}
-                <span>{cat.category}</span>
+                {isSelected && (
+                  <motion.div
+                    layoutId="activeSkillTab"
+                    transition={{ type: 'spring', bounce: 0.2, duration: 0.35 }}
+                    className="absolute inset-0 bg-white dark:bg-zinc-800 rounded-xl shadow-xs border border-slate-200/80 dark:border-zinc-700/60"
+                  />
+                )}
+                <span className="relative z-10 flex items-center gap-1.5 sm:gap-2">
+                  <Icon className={`w-4 h-4 ${isSelected ? 'text-sky-600 dark:text-sky-400' : 'text-slate-500 dark:text-zinc-400'}`} />
+                  <span>{display}</span>
+                  {label !== 'All' && (
+                    <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-slate-200/60 dark:bg-zinc-700/60 text-slate-600 dark:text-zinc-300 font-mono">
+                      {skillsList.filter((s) => s.category === label).length}
+                    </span>
+                  )}
+                </span>
               </button>
             );
           })}
         </div>
 
-        {/* Skills Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredCategories.map((group, idx) => (
-            <motion.div
-              key={group.category}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.35, delay: idx * 0.05 }}
-              className="bg-white dark:bg-zinc-900/60 rounded-xl border border-slate-200 dark:border-zinc-800/80 p-5 shadow-sm hover:border-slate-300 dark:hover:border-zinc-700 hover:-translate-y-0.5 transition-all duration-200"
-            >
-              <div className="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100 dark:border-zinc-800/70">
-                <div className="p-2 rounded-md bg-slate-100 dark:bg-zinc-800/70">
-                  {getCategoryIcon(group.category)}
-                </div>
-                <h3 className="text-sm font-semibold text-slate-900 dark:text-zinc-100">
-                  {group.category}
-                </h3>
-              </div>
-
-              <div className="flex flex-wrap gap-2">
-                {group.skills.map((skill) => (
-                  <span
-                    key={skill}
-                    className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-slate-50 dark:bg-zinc-800/60 text-slate-700 dark:text-zinc-300 border border-slate-200/80 dark:border-zinc-700/60 hover:text-sky-600 dark:hover:text-sky-400 hover:border-sky-500/40 transition-colors"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
-          ))}
-        </div>
+        {/* Animated Skills Pill Grid */}
+        <motion.div
+          layout
+          className="flex flex-wrap gap-3"
+        >
+          <AnimatePresence mode="popLayout">
+            {filteredSkills.map((skill) => {
+              const style = categoryBadgeStyles[skill.category] || {
+                dot: 'bg-sky-500',
+                borderHover: 'hover:border-sky-500/40',
+              };
+              return (
+                <motion.div
+                  layout
+                  key={`${skill.category}-${skill.name}`}
+                  initial={{ opacity: 0, scale: 0.94 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.94 }}
+                  transition={{ duration: 0.2 }}
+                  whileHover={{ scale: 1.03, y: -1 }}
+                  className={`group inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-white/90 dark:bg-zinc-900/60 border border-slate-200/90 dark:border-zinc-800/80 text-slate-800 dark:text-zinc-200 text-xs sm:text-sm font-medium shadow-xs transition-colors duration-200 ${style.borderHover}`}
+                >
+                  <span className={`w-2 h-2 rounded-full ${style.dot} shrink-0 opacity-80 group-hover:opacity-100 transition-opacity`} />
+                  <span className="tracking-tight">{skill.name}</span>
+                </motion.div>
+              );
+            })}
+          </AnimatePresence>
+        </motion.div>
       </div>
     </section>
   );
 };
+
+

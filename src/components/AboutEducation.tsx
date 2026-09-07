@@ -1,130 +1,172 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { GraduationCap, BookOpen, Globe2, Layers, CheckCircle2, ShieldCheck } from 'lucide-react';
-import { educationData, languagesData } from '../data/skills';
+import { GraduationCap, Globe2, Award, Calendar, MapPin, School } from 'lucide-react';
+import { educationData, secondaryEducationData, languagesData } from '../data/skills';
 
 export const AboutEducation: React.FC = () => {
   return (
-    <section id="about" className="py-16 md:py-20 border-t border-slate-200/80 dark:border-zinc-850">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="education" className="py-24 sm:py-32 border-t border-slate-200/80 dark:border-zinc-800/80">
+      <div className="max-w-5xl mx-auto px-6">
         {/* Section Heading */}
-        <div className="flex items-center gap-3 mb-10">
-          <span className="font-mono text-sm font-semibold text-sky-600 dark:text-sky-400">01.</span>
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-zinc-100">
-            About & Education
-          </h2>
-          <div className="h-px bg-slate-200 dark:bg-zinc-800 flex-1 ml-4" />
+        <div className="mb-14">
+          <div className="flex items-center gap-3 mb-3">
+            <span className="font-mono text-sm font-semibold text-sky-600 dark:text-sky-400">02.</span>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-zinc-100">
+              Education
+            </h2>
+            <div className="h-px bg-slate-200 dark:bg-zinc-800 flex-1 ml-4" />
+          </div>
+          <p className="text-base sm:text-lg text-slate-600 dark:text-zinc-400 max-w-2xl leading-relaxed">
+            My academic journey in computer science, engineering foundations, and secondary schooling.
+          </p>
         </div>
 
+        {/* Academic Cards Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {/* Education Card (7 columns on desktop) */}
+          
+          {/* Left Column: Higher & Secondary Credentials (8 cols) */}
+          <div className="lg:col-span-8 flex flex-col gap-6">
+            
+            {/* Primary Degree Card: AUST */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 0.45 }}
+              className="bg-white/80 dark:bg-zinc-900/40 rounded-2xl border border-slate-200/90 dark:border-zinc-800/80 p-8 shadow-xs hover:border-sky-500/30 transition-all duration-300 relative overflow-hidden"
+            >
+              {/* Ambient accent blob */}
+              <div
+                aria-hidden="true"
+                className="absolute top-0 right-0 w-64 h-64 bg-sky-500/[0.04] rounded-full blur-2xl pointer-events-none"
+              />
+
+              <div className="relative z-10">
+                <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
+                  <div className="flex items-center gap-3">
+                    <div className="p-3 rounded-xl bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20">
+                      <GraduationCap className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <span className="text-xs font-mono uppercase tracking-wider text-sky-600 dark:text-sky-400 font-semibold">
+                        Undergraduate Degree
+                      </span>
+                      <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-zinc-100">
+                        {educationData.institution}
+                      </h3>
+                    </div>
+                  </div>
+
+                  <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/25">
+                    <Award className="w-3.5 h-3.5" />
+                    <span>CGPA: {educationData.cgpa}</span>
+                  </span>
+                </div>
+
+                <div>
+                  <p className="text-base sm:text-lg font-medium text-slate-800 dark:text-zinc-200 mb-2">
+                    {educationData.degree}
+                  </p>
+                  <div className="flex flex-wrap items-center gap-4 text-xs sm:text-sm text-slate-500 dark:text-zinc-400">
+                    <span className="inline-flex items-center gap-1.5">
+                      <Calendar className="w-3.5 h-3.5 text-sky-500" />
+                      <span>{educationData.standing}</span>
+                    </span>
+                    <span>&bull;</span>
+                    <span className="inline-flex items-center gap-1.5">
+                      <MapPin className="w-3.5 h-3.5 text-sky-500" />
+                      <span>{educationData.location}</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Secondary Credentials: HSC & SSC Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {secondaryEducationData.map((item, index) => (
+                <motion.div
+                  key={item.degree}
+                  initial={{ opacity: 0, y: 15 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.15 }}
+                  transition={{ duration: 0.4, delay: 0.08 * index }}
+                  className="bg-white/80 dark:bg-zinc-900/40 rounded-2xl border border-slate-200/90 dark:border-zinc-800/80 p-6 shadow-xs hover:border-sky-500/30 transition-all duration-300 flex flex-col justify-between"
+                >
+                  <div>
+                    <div className="flex items-start justify-between gap-2 mb-3">
+                      <div className="flex items-center gap-2">
+                        <div className="p-2 rounded-lg bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20">
+                          <School className="w-4 h-4" />
+                        </div>
+                        <span className="text-[11px] font-mono uppercase tracking-wider text-sky-600 dark:text-sky-400 font-semibold">
+                          {item.degree.includes('HSC') ? 'Higher Secondary' : 'Secondary School'}
+                        </span>
+                      </div>
+
+                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/25 shrink-0">
+                        <Award className="w-3 h-3" />
+                        <span>GPA {item.gpa}</span>
+                      </span>
+                    </div>
+
+                    <h4 className="text-base font-bold text-slate-900 dark:text-zinc-100 mb-1">
+                      {item.institution}
+                    </h4>
+                    <p className="text-xs text-slate-600 dark:text-zinc-400">
+                      {item.degree}
+                    </p>
+                  </div>
+
+                  <div className="mt-5 pt-3.5 border-t border-slate-100 dark:border-zinc-800/80 flex items-center justify-between text-xs text-slate-500 dark:text-zinc-400">
+                    <span className="inline-flex items-center gap-1.5">
+                      <Calendar className="w-3.5 h-3.5 text-sky-500" />
+                      <span>Year: {item.year}</span>
+                    </span>
+                    <span className="font-mono text-[11px] text-slate-400 dark:text-zinc-500">Board Examination</span>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+          </div>
+
+          {/* Right Column: Spoken Languages & Highlights (4 cols) */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-50px' }}
-            transition={{ duration: 0.4 }}
-            className="lg:col-span-7 bg-white dark:bg-zinc-900/60 rounded-xl border border-slate-200 dark:border-zinc-800/80 p-6 sm:p-7 shadow-sm hover:border-slate-300 dark:hover:border-zinc-700 transition-all duration-200"
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.45, delay: 0.12 }}
+            className="lg:col-span-4 h-fit bg-white/80 dark:bg-zinc-900/40 rounded-2xl border border-slate-200/90 dark:border-zinc-800/80 p-7 shadow-xs"
           >
-            <div className="flex items-start justify-between gap-4 mb-4">
-              <div className="p-2.5 rounded-lg bg-sky-500/10 dark:bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20">
-                <GraduationCap className="w-6 h-6" />
-              </div>
-              <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-                CGPA: {educationData.cgpa}
-              </span>
-            </div>
-
-            <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-zinc-100 mb-1">
-              {educationData.institution}
-            </h3>
-            <p className="text-sm font-medium text-sky-600 dark:text-sky-400 mb-1">
-              {educationData.degree}
-            </p>
-            <p className="text-xs text-slate-500 dark:text-zinc-400 mb-6">
-              {educationData.location} • <span className="text-slate-700 dark:text-zinc-300 font-medium">{educationData.standing}</span>
-            </p>
-
-            {/* Relevant Coursework */}
             <div>
-              <div className="flex items-center gap-2 mb-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-zinc-400">
-                <BookOpen className="w-3.5 h-3.5 text-sky-500" />
-                <span>Relevant Undergraduate Coursework</span>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {educationData.coursework.map((course) => (
-                  <span
-                    key={course}
-                    className="px-2.5 py-1 text-xs font-medium rounded-md bg-slate-100 dark:bg-zinc-800/70 text-slate-700 dark:text-zinc-300 border border-slate-200 dark:border-zinc-700/60 hover:border-sky-500/30 transition-colors"
-                  >
-                    {course}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Right Column: Engineering Focus & Spoken Languages (5 columns) */}
-          <div className="lg:col-span-5 flex flex-col gap-6">
-            {/* Core Engineering Approach */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.4, delay: 0.1 }}
-              className="bg-white dark:bg-zinc-900/60 rounded-xl border border-slate-200 dark:border-zinc-800/80 p-6 shadow-sm hover:border-slate-300 dark:hover:border-zinc-700 transition-all duration-200"
-            >
-              <div className="flex items-center gap-2 mb-4 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-zinc-400">
-                <Layers className="w-4 h-4 text-sky-500" />
-                <span>Engineering Focus</span>
-              </div>
-
-              <ul className="space-y-3 text-xs sm:text-sm text-slate-600 dark:text-zinc-400">
-                <li className="flex items-start gap-2.5">
-                  <CheckCircle2 className="w-4 h-4 text-sky-500 mt-0.5 shrink-0" />
-                  <span>
-                    <strong className="font-semibold text-slate-800 dark:text-zinc-200">Layered Architecture:</strong> Strict separation of concerns (Core, Application, Infrastructure, Web) with FluentValidation pipelines.
-                  </span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <ShieldCheck className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" />
-                  <span>
-                    <strong className="font-semibold text-slate-800 dark:text-zinc-200">Security & Auth:</strong> ASP.NET Core Identity, JWT authentication with refresh token rotation, and role-based policies.
-                  </span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <CheckCircle2 className="w-4 h-4 text-sky-500 mt-0.5 shrink-0" />
-                  <span>
-                    <strong className="font-semibold text-slate-800 dark:text-zinc-200">Pragmatic AI:</strong> Gemini native function/tool calling with typed JSON schemas and model fallback routines.
-                  </span>
-                </li>
-              </ul>
-            </motion.div>
-
-            {/* Spoken Languages */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.4, delay: 0.2 }}
-              className="bg-white dark:bg-zinc-900/60 rounded-xl border border-slate-200 dark:border-zinc-800/80 p-6 shadow-sm hover:border-slate-300 dark:hover:border-zinc-700 transition-all duration-200"
-            >
-              <div className="flex items-center gap-2 mb-3 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-zinc-400">
+              <div className="flex items-center gap-2.5 mb-5 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-zinc-400">
                 <Globe2 className="w-4 h-4 text-sky-500" />
                 <span>Spoken Languages</span>
               </div>
 
-              <div className="space-y-2">
+              <div className="space-y-4">
                 {languagesData.map((item) => (
-                  <div key={item.language} className="flex items-center justify-between text-xs sm:text-sm">
-                    <span className="font-medium text-slate-800 dark:text-zinc-200">{item.language}</span>
-                    <span className="text-slate-500 dark:text-zinc-400">{item.level}</span>
+                  <div
+                    key={item.language}
+                    className="p-3.5 rounded-xl bg-slate-50 dark:bg-zinc-800/50 border border-slate-200/70 dark:border-zinc-750/70 flex items-center justify-between"
+                  >
+                    <span className="font-semibold text-slate-800 dark:text-zinc-200 text-sm">
+                      {item.language}
+                    </span>
+                    <span className="text-xs px-2.5 py-0.5 rounded-full bg-slate-200/70 dark:bg-zinc-700/60 text-slate-600 dark:text-zinc-300 font-medium">
+                      {item.level}
+                    </span>
                   </div>
                 ))}
               </div>
-            </motion.div>
-          </div>
+            </div>
+
+          </motion.div>
         </div>
       </div>
     </section>
   );
 };
+
+

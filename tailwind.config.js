@@ -9,6 +9,10 @@ export default {
     extend: {
       colors: {
         darkbg: '#0B0F17',
+        zinc: {
+          750: '#333338',
+          850: '#202024',
+        },
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],

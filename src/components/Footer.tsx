@@ -8,14 +8,14 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="w-full border-t border-slate-200/80 dark:border-zinc-800/80 bg-white/50 dark:bg-zinc-950/50 py-8 transition-colors duration-200">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-zinc-400">
+    <footer className="w-full border-t border-slate-200/80 dark:border-zinc-800/80 bg-white/50 dark:bg-zinc-950/50 py-10 transition-colors duration-200">
+      <div className="max-w-5xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-zinc-400">
         <div>
           <span>Designed &amp; Built by </span>
           <span className="font-semibold text-slate-800 dark:text-zinc-200">
             Shadman Muhtasim
           </span>
-          <span className="hidden sm:inline"> • Dhaka, Bangladesh</span>
+          <span className="hidden sm:inline"> &bull; Dhaka, Bangladesh</span>
         </div>
 
         <div className="flex items-center gap-4">
@@ -24,7 +24,7 @@ export const Footer: React.FC = () => {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub Profile"
-            className="hover:text-slate-900 dark:hover:text-zinc-100 transition-colors"
+            className="p-1.5 rounded-lg text-slate-500 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-zinc-100 hover:bg-slate-100 dark:hover:bg-zinc-800 transition-colors"
           >
             <GithubIcon className="w-4 h-4" />
           </a>
@@ -34,7 +34,7 @@ export const Footer: React.FC = () => {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn Profile"
-            className="hover:text-sky-600 dark:hover:text-sky-400 transition-colors"
+            className="p-1.5 rounded-lg text-slate-500 dark:text-zinc-400 hover:text-sky-600 dark:hover:text-sky-400 hover:bg-slate-100 dark:hover:bg-zinc-800 transition-colors"
           >
             <LinkedinIcon className="w-4 h-4" />
           </a>
@@ -42,7 +42,7 @@ export const Footer: React.FC = () => {
           <a
             href="mailto:theshadman007@gmail.com"
             aria-label="Send Email"
-            className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+            className="p-1.5 rounded-lg text-slate-500 dark:text-zinc-400 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-slate-100 dark:hover:bg-zinc-800 transition-colors"
           >
             <Mail className="w-4 h-4" />
           </a>
@@ -51,13 +51,14 @@ export const Footer: React.FC = () => {
             type="button"
             onClick={scrollToTop}
             aria-label="Scroll back to top"
-            className="inline-flex items-center gap-1 ml-2 px-2.5 py-1 rounded-md text-xs font-medium bg-slate-100 dark:bg-zinc-800 hover:bg-slate-200 dark:hover:bg-zinc-700 text-slate-700 dark:text-zinc-300 border border-slate-200 dark:border-zinc-750 transition-colors"
+            className="inline-flex items-center gap-1.5 ml-2 px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-100 dark:bg-zinc-900 hover:bg-slate-200 dark:hover:bg-zinc-800 text-slate-700 dark:text-zinc-300 border border-slate-200/90 dark:border-zinc-800 transition-colors"
           >
             <span>Back to top</span>
-            <ArrowUp className="w-3 h-3" />
+            <ArrowUp className="w-3.5 h-3.5" />
           </button>
         </div>
       </div>
     </footer>
   );
 };
+

@@ -9,14 +9,16 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { name: 'About', href: '#about', id: 'about' },
+  { name: 'Home', href: '#top', id: 'top' },
   { name: 'Skills', href: '#skills', id: 'skills' },
+  { name: 'Education', href: '#education', id: 'education' },
   { name: 'Projects', href: '#projects', id: 'projects' },
+  { name: 'About', href: '#about', id: 'about' },
   { name: 'Contact', href: '#contact', id: 'contact' },
 ];
 
 export const Navbar: React.FC = () => {
-  const [activeSection, setActiveSection] = useState<string>('about');
+  const [activeSection, setActiveSection] = useState<string>('top');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
 
   useEffect(() => {
@@ -52,12 +54,12 @@ export const Navbar: React.FC = () => {
   };
 
   return (
-    <header className="sticky top-0 z-40 w-full backdrop-blur-md bg-white/75 dark:bg-zinc-950/75 border-b border-slate-200/60 dark:border-zinc-800/50 transition-colors duration-200">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    <header className="sticky top-0 z-40 w-full backdrop-blur-md bg-white/80 dark:bg-zinc-950/80 border-b border-slate-200/80 dark:border-zinc-800/80 transition-colors duration-200">
+      <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Brand Logo */}
         <a
           href="#top"
-          className="flex items-center gap-2 group font-mono text-base sm:text-lg font-semibold tracking-tight text-slate-900 dark:text-zinc-100 hover:text-sky-600 dark:hover:text-sky-400 transition-colors"
+          className="flex items-center gap-2.5 group font-mono text-base font-semibold tracking-tight text-slate-900 dark:text-zinc-100 hover:text-sky-600 dark:hover:text-sky-400 transition-colors"
         >
           <div className="w-8 h-8 rounded-lg bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-600 dark:text-sky-400 group-hover:bg-sky-500/20 transition-colors">
             <Code2 className="w-4 h-4" />
@@ -68,7 +70,7 @@ export const Navbar: React.FC = () => {
         </a>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center gap-1 bg-slate-100/80 dark:bg-zinc-900/60 p-1.5 rounded-full border border-slate-200/80 dark:border-zinc-800/80 shadow-inner">
+        <nav className="hidden md:flex items-center gap-1 bg-slate-100/90 dark:bg-zinc-900/70 p-1.5 rounded-full border border-slate-200/80 dark:border-zinc-800/80 shadow-2xs">
           {navItems.map((item) => {
             const isActive = activeSection === item.id;
             return (
@@ -81,7 +83,7 @@ export const Navbar: React.FC = () => {
                 }}
                 className={`relative px-4 py-1.5 text-xs font-medium rounded-full transition-all duration-200 ${
                   isActive
-                    ? 'text-white bg-sky-600 dark:bg-sky-500 shadow-sm'
+                    ? 'text-white bg-sky-600 dark:bg-sky-500 shadow-xs'
                     : 'text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-zinc-200 hover:bg-slate-200/60 dark:hover:bg-zinc-800/50'
                 }`}
               >
@@ -121,7 +123,7 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile Drawer Menu */}
       {isMobileMenuOpen && (
-        <div className="sm:hidden px-4 pt-2 pb-5 border-t border-slate-200 dark:border-zinc-800/80 bg-white/95 dark:bg-zinc-950/95 backdrop-blur-lg">
+        <div className="sm:hidden px-6 pt-2 pb-6 border-t border-slate-200 dark:border-zinc-800/80 bg-white/95 dark:bg-zinc-950/95 backdrop-blur-lg">
           <div className="flex flex-col space-y-2 pt-2">
             {navItems.map((item) => {
               const isActive = activeSection === item.id;
@@ -160,3 +162,4 @@ export const Navbar: React.FC = () => {
     </header>
   );
 };
+

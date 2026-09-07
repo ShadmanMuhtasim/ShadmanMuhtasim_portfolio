@@ -1,9 +1,10 @@
 import React from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
-import { AboutEducation } from './components/AboutEducation';
 import { TechnicalSkills } from './components/TechnicalSkills';
+import { AboutEducation } from './components/AboutEducation';
 import { Projects } from './components/Projects';
+import { EngineeringFocus } from './components/EngineeringFocus';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 
@@ -14,9 +15,10 @@ export const App: React.FC = () => {
 
       <main className="flex-1 w-full">
         <Hero />
-        <AboutEducation />
         <TechnicalSkills />
+        <AboutEducation />
         <Projects />
+        <EngineeringFocus />
         <Contact />
       </main>
 
