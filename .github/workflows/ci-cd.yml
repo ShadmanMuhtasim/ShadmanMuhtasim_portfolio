@@ -29,10 +29,10 @@ jobs:
       - name: Checkout Source Code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js 20 LTS
+      - name: Setup Node.js 22 LTS
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: 'npm'
 
       - name: Install Dependencies
@@ -71,10 +71,10 @@ jobs:
       - name: Checkout Source Code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js 20 LTS
+      - name: Setup Node.js 22 LTS
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Download Production Artifact
         uses: actions/download-artifact@v4
@@ -86,14 +86,10 @@ jobs:
         id: deploy
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID || '28976e2a-4cb5-44af-8438-32f2709f4150' }}
         run: |
           if [ -z "$NETLIFY_AUTH_TOKEN" ]; then
-            echo "::error::NETLIFY_AUTH_TOKEN secret is missing! Please configure it in GitHub Repository Secrets."
-            exit 1
-          fi
-          if [ -z "$NETLIFY_SITE_ID" ]; then
-            echo "::error::NETLIFY_SITE_ID secret is missing! Please configure it in GitHub Repository Secrets."
+            echo "::error::NETLIFY_AUTH_TOKEN secret is missing! Please configure it in GitHub Repository Secrets (Settings -> Secrets and variables -> Actions)."
             exit 1
           fi
 
@@ -101,6 +97,8 @@ jobs:
           DEPLOY_OUTPUT=$(npx --yes netlify-cli@latest deploy \
             --prod \
             --dir=dist \
+            --site="$NETLIFY_SITE_ID" \
+            --auth="$NETLIFY_AUTH_TOKEN" \
             --message="GitHub Actions CI/CD Deploy (${{ github.sha }})")
           
           echo "$DEPLOY_OUTPUT"
