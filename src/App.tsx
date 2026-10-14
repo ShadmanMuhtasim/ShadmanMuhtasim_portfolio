@@ -1,4 +1,3 @@
-import React from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { TechnicalSkills } from './components/TechnicalSkills';
@@ -8,23 +7,20 @@ import { EngineeringFocus } from './components/EngineeringFocus';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 
-export const App: React.FC = () => {
+export default function App() {
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-darkbg text-slate-800 dark:text-zinc-200 antialiased selection:bg-sky-500/20 selection:text-sky-400 flex flex-col justify-between">
+    <>
+      <a className="skip-link" href="#main-content">Skip to content</a>
       <Navbar />
-
-      <main className="flex-1 w-full">
+      <main id="main-content" tabIndex={-1}>
         <Hero />
+        <Projects />
         <TechnicalSkills />
         <AboutEducation />
-        <Projects />
         <EngineeringFocus />
         <Contact />
       </main>
-
       <Footer />
-    </div>
+    </>
   );
-};
-
-export default App;
+}
