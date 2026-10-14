@@ -26,6 +26,7 @@ export const projects: Project[] = [
       'Built responsive React/TypeScript client interface managing asynchronous server state via TanStack Query.',
     ],
     githubUrl: 'https://github.com/ShadmanMuhtasim/Karigor',
+    liveUrl: 'https://karigor.runasp.net/home',
     featured: true,
   },
   {

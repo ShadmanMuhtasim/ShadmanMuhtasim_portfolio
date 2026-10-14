@@ -141,7 +141,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                     className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white bg-sky-600 hover:bg-sky-500 dark:bg-sky-500 dark:hover:bg-sky-400 shadow-sm transition-all"
                   >
                     <Globe className="w-4 h-4" />
-                    <span>Live View</span>
+                    <span>Live Demo</span>
                     <ExternalLink className="w-3.5 h-3.5 ml-0.5" />
                   </a>
                 )}

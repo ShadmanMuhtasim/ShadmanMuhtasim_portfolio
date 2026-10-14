@@ -118,7 +118,7 @@ export const Projects: React.FC = () => {
                             href={project.liveUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            aria-label={`Open ${project.title} live view`}
+                            aria-label={`Open ${project.title} live demo`}
                             className="p-1.5 rounded-lg text-slate-500 dark:text-zinc-400 hover:text-sky-600 dark:hover:text-sky-400 hover:bg-slate-100 dark:hover:bg-zinc-800/80 transition-colors"
                           >
                             <Globe className="w-4 h-4" />
@@ -160,7 +160,7 @@ export const Projects: React.FC = () => {
                   </div>
 
                   {/* Card Footer Actions */}
-                  <div className="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-zinc-800/70">
+                  <div className="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-slate-100 dark:border-zinc-800/70">
                     <button
                       type="button"
                       onClick={() => setActiveModalProject(project)}
@@ -178,7 +178,7 @@ export const Projects: React.FC = () => {
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-1 text-xs font-semibold text-sky-600 dark:text-sky-400 hover:text-sky-700 dark:hover:text-sky-300 transition-colors"
                         >
-                          <span>Live</span>
+                          <span>Live Demo</span>
                           <ExternalLink className="w-3 h-3" />
                         </a>
                       )}
