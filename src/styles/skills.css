@@ -54,7 +54,7 @@
     font-size: 0.875rem;
     line-height: 1.5;
   }
-html.no-js .skills-tabs { display: none; }
+html:not([data-app-ready="true"]) .skills-tabs { display: none; }
 @media (hover: hover) {
     .skills-tab:hover {
       border-color: var(--accent);

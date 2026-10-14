@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useScrollReveal } from './hooks/useScrollReveal';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
@@ -10,6 +11,7 @@ import { Footer } from './components/Footer';
 
 export default function App() {
   useScrollReveal();
+  useEffect(() => { document.documentElement.dataset.appReady = 'true'; }, []);
   return (
     <>
       <a className="skip-link" href="#main-content">Skip to content</a>
