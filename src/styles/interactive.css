@@ -56,3 +56,27 @@
   .portrait { width: min(100%, 16rem); }
   .hero-aside { grid-column: auto; grid-template-columns: minmax(0, 1fr); }
 }
+
+.section-title { min-width: 0; }
+.section-rule { flex: 1; min-width: 1rem; height: 1px; background: var(--border); }
+.text-link, .contact-email { transition: color var(--dur-base), border-color var(--dur-base); }
+.button, .icon-button { transition: transform var(--dur-fast) var(--ease-out), background-color var(--dur-base), border-color var(--dur-base), color var(--dur-base); }
+.button:active, .icon-button:active, .text-link:active { transform: translateY(1px); }
+.button:disabled, .icon-button:disabled { cursor: default; }
+.text-link > svg:last-child { transition: transform var(--dur-base) var(--ease-out); }
+[data-reveal-state] { transition: opacity var(--dur-slow) var(--ease-out), transform var(--dur-slow) var(--ease-out); transition-delay: var(--reveal-delay, 0ms); }
+[data-reveal-state="pending"] { opacity: 0; transform: translateY(12px); }
+[data-reveal-state="visible"] { opacity: 1; transform: none; }
+[data-entry="true"] .hero-copy, [data-entry="true"] .portrait, [data-entry="true"] .hero-aside { animation: hero-entry var(--dur-slow) var(--ease-out) both; }
+[data-entry="true"] .portrait { animation-delay: 50ms; }
+[data-entry="true"] .hero-aside { animation-delay: 100ms; }
+[data-theme-transitions="true"] body { transition: color var(--dur-base), background-color var(--dur-base); }
+@keyframes hero-entry { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@media (hover: hover) {
+  .text-link:hover, .contact-email:hover { color: var(--accent-hover); text-decoration: underline; }
+  .text-link:hover > svg:last-child { transform: translateX(2px); }
+  .button:hover { background-color: var(--surface-soft); border-color: var(--muted); }
+  .button-primary:hover { color: var(--on-accent); background-color: var(--accent-hover); border-color: var(--accent-hover); }
+  .icon-button:hover { background-color: var(--surface-soft); }
+  .nav-link:hover:not([aria-current="location"]) { color: var(--text); background-color: var(--surface-soft); }
+}

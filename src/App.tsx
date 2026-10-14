@@ -1,3 +1,4 @@
+import { useScrollReveal } from './hooks/useScrollReveal';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { TechnicalSkills } from './components/TechnicalSkills';
@@ -8,6 +9,7 @@ import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 
 export default function App() {
+  useScrollReveal();
   return (
     <>
       <a className="skip-link" href="#main-content">Skip to content</a>
