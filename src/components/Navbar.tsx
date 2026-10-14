@@ -1,165 +1,97 @@
-import React, { useState, useEffect } from 'react';
-import { Menu, X, FileDown, Code2 } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { FileDown, Menu, X } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
 
-interface NavItem {
-  name: string;
-  href: string;
-  id: string;
-}
-
-const navItems: NavItem[] = [
-  { name: 'Home', href: '#top', id: 'top' },
-  { name: 'Skills', href: '#skills', id: 'skills' },
-  { name: 'Education', href: '#education', id: 'education' },
-  { name: 'Projects', href: '#projects', id: 'projects' },
-  { name: 'About', href: '#about', id: 'about' },
-  { name: 'Contact', href: '#contact', id: 'contact' },
+const navItems = [
+  { name: 'Home', id: 'top' },
+  { name: 'Projects', id: 'projects' },
+  { name: 'Skills', id: 'skills' },
+  { name: 'Education', id: 'education' },
+  { name: 'About', id: 'about' },
+  { name: 'Contact', id: 'contact' },
 ];
 
-export const Navbar: React.FC = () => {
-  const [activeSection, setActiveSection] = useState<string>('top');
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
+export function Navbar() {
+  const [activeSection, setActiveSection] = useState('top');
+  const [menuOpen, setMenuOpen] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
+  const toggleRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
-        });
-      },
-      { rootMargin: '-20% 0px -65% 0px', threshold: 0 }
-    );
-
-    const sectionElements = navItems.map((item) => document.getElementById(item.id));
-    sectionElements.forEach((el) => {
-      if (el) observer.observe(el);
-    });
-
-    return () => {
-      sectionElements.forEach((el) => {
-        if (el) observer.unobserve(el);
-      });
-    };
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) setActiveSection(entry.target.id);
+      }
+    }, { rootMargin: '-15% 0px -65% 0px' });
+    for (const item of navItems) {
+      const section = document.getElementById(item.id);
+      if (section) observer.observe(section);
+    }
+    return () => observer.disconnect();
   }, []);
 
-  const handleNavClick = (href: string) => {
-    setIsMobileMenuOpen(false);
-    const targetElement = document.querySelector(href);
-    if (targetElement) {
-      targetElement.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+  useEffect(() => {
+    const desktop = window.matchMedia('(min-width: 68rem)');
+    const closeOnDesktop = () => { if (desktop.matches) setMenuOpen(false); };
+    desktop.addEventListener('change', closeOnDesktop);
+    return () => desktop.removeEventListener('change', closeOnDesktop);
+  }, []);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const handleKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setMenuOpen(false);
+        toggleRef.current?.focus();
+      }
+    };
+    const handleOutside = (event: PointerEvent) => {
+      if (event.target instanceof Node && !headerRef.current?.contains(event.target)) {
+        setMenuOpen(false);
+      }
+    };
+    document.addEventListener('keydown', handleKey);
+    document.addEventListener('pointerdown', handleOutside);
+    return () => {
+      document.removeEventListener('keydown', handleKey);
+      document.removeEventListener('pointerdown', handleOutside);
+    };
+  }, [menuOpen]);
+
+  const links = navItems.map((item) => (
+    <a key={item.id} className="nav-link" href={`#${item.id}`}
+      aria-current={activeSection === item.id ? 'location' : undefined}
+      onClick={() => setMenuOpen(false)}>{item.name}</a>
+  ));
 
   return (
-    <header className="sticky top-0 z-40 w-full backdrop-blur-md bg-white/80 dark:bg-zinc-950/80 border-b border-slate-200/80 dark:border-zinc-800/80 transition-colors duration-200">
-      <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
-        {/* Brand Logo */}
-        <a
-          href="#top"
-          className="flex items-center gap-2.5 group font-mono text-base font-semibold tracking-tight text-slate-900 dark:text-zinc-100 hover:text-sky-600 dark:hover:text-sky-400 transition-colors"
-        >
-          <div className="w-8 h-8 rounded-lg bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-600 dark:text-sky-400 group-hover:bg-sky-500/20 transition-colors">
-            <Code2 className="w-4 h-4" />
-          </div>
-          <span>
-            shadman<span className="text-sky-600 dark:text-sky-400">.dev</span>
-          </span>
-        </a>
-
-        {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center gap-1 bg-slate-100/90 dark:bg-zinc-900/70 p-1.5 rounded-full border border-slate-200/80 dark:border-zinc-800/80 shadow-2xs">
-          {navItems.map((item) => {
-            const isActive = activeSection === item.id;
-            return (
-              <a
-                key={item.id}
-                href={item.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleNavClick(item.href);
-                }}
-                className={`relative px-4 py-1.5 text-xs font-medium rounded-full transition-all duration-200 ${
-                  isActive
-                    ? 'text-white bg-sky-600 dark:bg-sky-500 shadow-xs'
-                    : 'text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-zinc-200 hover:bg-slate-200/60 dark:hover:bg-zinc-800/50'
-                }`}
-              >
-                {item.name}
-              </a>
-            );
-          })}
-        </nav>
-
-        {/* Right Actions */}
-        <div className="hidden sm:flex items-center gap-3">
-          <ThemeToggle />
-          <a
-            href="/resume.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 text-xs font-medium rounded-lg text-slate-700 dark:text-zinc-300 bg-slate-100 hover:bg-slate-200/80 dark:bg-zinc-900/80 dark:hover:bg-zinc-800 border border-slate-300/80 dark:border-zinc-800 transition-all duration-150 hover:border-sky-500/30 dark:hover:border-sky-500/30"
-          >
-            <FileDown className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
-            <span>Resume</span>
+    <header className="site-header" ref={headerRef}>
+      <div className="container nav-bar">
+        <a className="brand" href="#top" aria-label="shadman.dev — Shadman Muhtasim, home"
+          onClick={() => setMenuOpen(false)}>shadman<span>.dev</span></a>
+        <nav className="desktop-nav" aria-label="Main navigation">{links}</nav>
+        <div className="nav-actions">
+          <a className="button nav-resume" href="/resume.pdf" target="_blank" rel="noopener noreferrer">
+            <FileDown size={16} aria-hidden="true" /> Resume
           </a>
-        </div>
-
-        {/* Mobile Hamburger & Theme Toggle */}
-        <div className="flex sm:hidden items-center gap-2">
           <ThemeToggle />
-          <button
-            type="button"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
-            className="p-2 rounded-lg text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-zinc-100 hover:bg-slate-100 dark:hover:bg-zinc-800 border border-slate-200 dark:border-zinc-800"
-          >
-            {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          <button ref={toggleRef} className="icon-button menu-toggle" type="button"
+            aria-label={menuOpen ? 'Close navigation' : 'Open navigation'}
+            aria-expanded={menuOpen} aria-controls="mobile-navigation"
+            onClick={() => setMenuOpen((open) => !open)}>
+            {menuOpen ? <X size={20} aria-hidden="true" /> : <Menu size={20} aria-hidden="true" />}
           </button>
         </div>
       </div>
-
-      {/* Mobile Drawer Menu */}
-      {isMobileMenuOpen && (
-        <div className="sm:hidden px-6 pt-2 pb-6 border-t border-slate-200 dark:border-zinc-800/80 bg-white/95 dark:bg-zinc-950/95 backdrop-blur-lg">
-          <div className="flex flex-col space-y-2 pt-2">
-            {navItems.map((item) => {
-              const isActive = activeSection === item.id;
-              return (
-                <a
-                  key={item.id}
-                  href={item.href}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleNavClick(item.href);
-                  }}
-                  className={`px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-                    isActive
-                      ? 'bg-sky-500/10 text-sky-600 dark:text-sky-400 font-semibold'
-                      : 'text-slate-700 dark:text-zinc-400 hover:bg-slate-100 dark:hover:bg-zinc-900'
-                  }`}
-                >
-                  {item.name}
-                </a>
-              );
-            })}
-            <div className="pt-3 border-t border-slate-200 dark:border-zinc-800">
-              <a
-                href="/resume.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 w-full px-4 py-2.5 text-sm font-medium rounded-lg text-slate-800 dark:text-zinc-200 bg-slate-100 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 hover:border-sky-500/40"
-              >
-                <FileDown className="w-4 h-4 text-sky-600 dark:text-sky-400" />
-                <span>Download Resume (PDF)</span>
-              </a>
-            </div>
+      {menuOpen && (
+        <nav id="mobile-navigation" className="mobile-nav" aria-label="Mobile navigation">
+          <div className="container">
+            <div className="mobile-nav-links">{links}</div>
+            <a className="button" href="/resume.pdf" target="_blank" rel="noopener noreferrer"
+              onClick={() => setMenuOpen(false)}><FileDown size={16} aria-hidden="true" /> Download Resume (PDF)</a>
           </div>
-        </div>
+        </nav>
       )}
     </header>
   );
-};
-
+}

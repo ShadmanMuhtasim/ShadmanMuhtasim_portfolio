@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="dark scroll-smooth">
+<html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -14,10 +14,16 @@
     <meta property="og:title" content="Shadman Muhtasim | Software Engineer (.NET & AI Applications)" />
     <meta property="og:description" content="Software Engineer — Backend & Full-Stack Developer with strong ASP.NET Core / .NET foundation and practical AI/LLM application engineering experience." />
 
-    <!-- Preconnect & Google Fonts (Inter) -->
+    <link rel="canonical" href="https://shadmanmuhtasim.netlify.app/" />
+    <meta property="og:url" content="https://shadmanmuhtasim.netlify.app/" />
+    <meta property="og:image" content="https://shadmanmuhtasim.netlify.app/profile-640.webp" />
+    <meta property="og:image:alt" content="Shadman Muhtasim" />
+    <meta name="twitter:card" content="summary" />
+
+    <!-- Load only the weights used by the interface. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 
     <script>
       // Early dark-mode initialization to prevent flash
@@ -33,7 +39,7 @@
       }
     </script>
   </head>
-  <body class="bg-slate-50 dark:bg-darkbg text-slate-800 dark:text-zinc-300 font-sans antialiased selection:bg-sky-500/20 selection:text-sky-300 transition-colors duration-200 min-h-screen">
+  <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
