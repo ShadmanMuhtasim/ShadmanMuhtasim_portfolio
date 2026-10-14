@@ -28,7 +28,7 @@
   position: relative;
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: minmax(0, calc(100% - 3.5rem));
+  grid-auto-columns: calc(100% - 3.5rem);
   align-items: stretch;
   gap: var(--space-3);
   width: 100%;
@@ -107,7 +107,7 @@ html:not([data-app-ready="true"]) .project-carousel {
 
 @media (min-width: 48rem) {
   .project-carousel {
-    grid-auto-columns: minmax(0, calc((100% - 4.5rem) / 2));
+    grid-auto-columns: calc((100% - 4.5rem) / 2);
   }
 }
 

@@ -187,7 +187,7 @@ export function Projects() {
                   type="button"
                   className="text-link details-button project-modal-trigger"
                   onClick={() => setActiveProject(project)}
-                  aria-label={'Details for ' + project.title}
+                  aria-label={'View details for ' + project.title}
                   aria-haspopup="dialog"
                 >
                   View details <ArrowRight size={16} aria-hidden="true" />
@@ -209,7 +209,7 @@ export function Projects() {
                     href={project.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label={project.title + ' source on GitHub (opens in a new tab)'}
+                    aria-label={'Code for ' + project.title + ' on GitHub (opens in a new tab)'}
                   >
                     Code <ArrowUpRight size={16} aria-hidden="true" />
                   </a>

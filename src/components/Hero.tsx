@@ -40,7 +40,7 @@ export function Hero() {
   return (
     <section id="top" className="hero" aria-labelledby="intro-heading">
       <span id="hero-start" className="hero-sentinel" aria-hidden="true" />
-      <div className="hero-watermark" aria-hidden="true">MUHTASIM</div>
+      <svg className="hero-watermark" viewBox="0 0 1100 150" aria-hidden="true" focusable="false"><text x="550" y="125" textAnchor="middle" fontSize="150" fill="currentColor">MUHTASIM</text></svg>
       <div className="container hero-layout">
         <div className="hero-copy">
           <p className="hero-role">CSE undergraduate · Backend &amp; full-stack developer</p>

@@ -18,7 +18,7 @@
 [data-theme-transitions="true"] .theme-icon { transition: transform var(--dur-base) var(--ease-out), opacity var(--dur-base); }
 .hero { position: relative; isolation: isolate; padding-block: clamp(3rem, 6vw, 5rem) 2rem; }
 .hero-sentinel { position: absolute; top: 0; left: 0; width: 1px; height: 1px; pointer-events: none; }
-.hero-watermark { display: none; position: absolute; z-index: -1; inset: 25% 0 auto; width: 100%; text-align: center; font-size: clamp(5rem, 14vw, 15rem); font-weight: 600; letter-spacing: 0.025em; line-height: 1; opacity: 0.055; pointer-events: none; user-select: none; }
+.hero-watermark { display: none; position: absolute; z-index: -1; inset: 25% 0 auto; width: 100%; height: auto; text-align: center; font-size: clamp(5rem, 14vw, 15rem); font-weight: 600; letter-spacing: 0.025em; line-height: 1; opacity: 0.055; pointer-events: none; user-select: none; }
 .dark .hero-watermark { opacity: 0.045; }
 .hero-layout { grid-template-columns: minmax(0, 1fr); gap: 2rem; }
 .hero-copy, .hero-aside { min-width: 0; }

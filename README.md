@@ -7,7 +7,7 @@
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?logo=tailwind-css&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-8.x-646CFF?logo=vite&logoColor=white)
 
-A modern, spacious, recruiter-friendly personal engineering portfolio designed with an editorial dark aesthetic. Built with React 19, TypeScript, Tailwind CSS, and Framer Motion.
+A responsive software-engineering portfolio built with React 19, TypeScript, and Tailwind CSS. A restrained light/dark theme presents projects, technical skills, education, and practical AI/LLM work.
 
 ---
 
@@ -15,7 +15,7 @@ A modern, spacious, recruiter-friendly personal engineering portfolio designed w
 
 - **Frontend**: React 19, TypeScript, Vite
 - **Styling**: Tailwind CSS (with custom dark theme tokens), CSS animations
-- **Interactions & Motion**: Framer Motion (layout animations, modal transitions, carousels)
+- **Interactions**: native accessible project dialogs, keyboard-friendly mobile navigation, and light/dark themes
 - **Icons**: Lucide React & Custom Brand SVG Components
 - **Hosting & Infrastructure**: Netlify with custom security headers and SPA routing
 - **CI/CD Automation**: GitHub Actions (automated quality gating, type checking, production compilation, and atomic deployment)
@@ -42,7 +42,7 @@ flowchart LR
 
 1. **Phase 1 — CI (Quality & Build Gate)**:
    - Triggers on `push` and `pull_request` targeting the `main` branch.
-   - Runs on `ubuntu-latest` with **Node.js 20 LTS** and npm caching.
+   - Runs on `ubuntu-latest` with **Node.js 22 LTS** and npm caching.
    - Executes dependency check (`npm ci`), code quality analysis (`npm run lint`), strict type-checking (`npx tsc -b`), and production bundle compilation (`npm run build`).
    - Produces a verified production artifact (`dist/`).
 
@@ -56,7 +56,7 @@ flowchart LR
 ## 🛠️ Local Development & Scripts
 
 ### Prerequisites
-- Node.js >= 20.x
+- Node.js 22.12+ (local validation: 22.17.0)
 - npm >= 10.x
 
 ### Quick Start
@@ -80,7 +80,7 @@ npm run dev
 | `npm run dev` | Starts the Vite local development server with HMR |
 | `npm run build` | Compiles TypeScript (`tsc -b`) and bundles for production (`vite build`) |
 | `npm run lint` | Runs Oxlint linter across all source files |
-| `npm test` | Executes the test suite (if configured) |
+| `npm test` | Placeholder command; no repository test suite is configured |
 | `npm run preview` | Locally previews the compiled production bundle from `dist/` |
 
 ---
