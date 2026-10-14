@@ -1,0 +1,142 @@
+.carousel-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.carousel-position {
+  min-width: 7ch;
+  color: var(--muted);
+  font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.carousel-buttons {
+  display: flex;
+  gap: var(--space-1);
+}
+
+.carousel-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.project-carousel {
+  position: relative;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, calc(100% - 3.5rem));
+  align-items: stretch;
+  gap: var(--space-3);
+  width: 100%;
+  min-width: 0;
+  padding: 0.25rem 0.25rem 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 0.25rem;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+.project-carousel .project-card {
+  scroll-snap-align: start;
+  min-width: 0;
+  height: 100%;
+  transition: border-color var(--dur-base, 200ms), transform var(--dur-base, 200ms) var(--ease-out, ease-out);
+}
+
+.project-carousel .project-context {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.project-carousel .project-footer {
+  gap: 0.25rem var(--space-2);
+}
+
+.project-carousel .text-link svg {
+  transition: transform var(--dur-fast, 120ms) var(--ease-out, ease-out);
+}
+
+.project-carousel .project-card:focus-within {
+  border-color: var(--accent);
+}
+
+.project-fallback {
+  margin-block: var(--space-2) var(--space-3);
+}
+
+.project-fallback summary {
+  min-height: 2.75rem;
+  padding-block: 0.5rem;
+  color: var(--accent);
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.project-fallback .project-details {
+  margin-top: var(--space-2);
+}
+
+.project-details-section > h4 {
+  margin-bottom: var(--space-2);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+html.js .project-fallback {
+  display: none;
+}
+
+html.no-js .project-modal-trigger,
+html.no-js .carousel-controls {
+  display: none;
+}
+
+html.no-js .project-carousel {
+  grid-auto-flow: row;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 28rem), 1fr));
+  grid-auto-columns: auto;
+  overflow: visible;
+  padding: 0;
+}
+
+@media (min-width: 48rem) {
+  .project-carousel {
+    grid-auto-columns: minmax(0, calc((100% - 4.5rem) / 2));
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .project-carousel .project-card:hover {
+    border-color: var(--accent);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .project-carousel .project-card:hover,
+  .project-carousel .project-card:focus-within {
+    transform: translateY(-3px);
+  }
+
+  .project-carousel .text-link:hover svg,
+  .project-carousel .text-link:focus-visible svg {
+    transform: translateX(2px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-carousel {
+    scroll-behavior: auto;
+  }
+
+  .project-carousel .project-card,
+  .project-carousel .text-link svg {
+    transform: none;
+    transition: none;
+  }
+}

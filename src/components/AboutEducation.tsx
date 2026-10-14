@@ -1,4 +1,5 @@
-﻿import { educationData, secondaryEducationData, languagesData } from '../data/skills';
+﻿import { GraduationCap, Globe2 } from 'lucide-react';
+import { educationData, secondaryEducationData, languagesData } from '../data/skills';
 import { SectionHeader } from './SectionHeader';
 
 export function AboutEducation() {
@@ -12,14 +13,17 @@ export function AboutEducation() {
           id="education-heading"
         />
         <div className="education-layout">
-          <div>
-            <article className="degree">
+          <div className="education-main">
+            <article className="degree education-card" data-reveal data-reveal-index="0">
+              <div className="education-card-top">
+                <span className="section-icon" aria-hidden="true"><GraduationCap size={22} /></span>
+                <span className="value-badge">CGPA: {educationData.cgpa}</span>
+              </div>
               <p className="eyebrow">Undergraduate degree</p>
               <h3>{educationData.institution}</h3>
               <p className="degree-name">{educationData.degree}</p>
               <div className="degree-facts">
                 <p>{educationData.standing}</p>
-                <p>CGPA: {educationData.cgpa}</p>
                 <p>{educationData.location}</p>
               </div>
               {educationData.coursework && educationData.coursework.length > 0 && (
@@ -32,23 +36,29 @@ export function AboutEducation() {
               )}
             </article>
             <div className="secondary-education">
-              {secondaryEducationData.map((item) => (
-                <article className="secondary-degree" key={item.degree}>
-                  <p className="eyebrow">{item.degree}</p>
+              {secondaryEducationData.map((item, index) => (
+                <article className="secondary-degree education-card" key={item.degree} data-reveal data-reveal-index={index + 1}>
+                  <div className="education-card-top">
+                    <p className="eyebrow">{item.degree.includes('HSC') ? 'Higher secondary' : 'Secondary school'}</p>
+                    <span className="value-badge">GPA {item.gpa}</span>
+                  </div>
                   <h3>{item.institution}</h3>
-                  <p>Year: {item.year} · GPA {item.gpa}</p>
-                  <p>Board examination</p>
+                  <p>{item.degree}</p>
+                  <div className="school-details">
+                    <span>Year: {item.year}</span>
+                    <span>Board examination</span>
+                  </div>
                 </article>
               ))}
             </div>
           </div>
-          <aside className="languages" aria-labelledby="languages-heading">
-            <h3 id="languages-heading">Spoken languages</h3>
+          <aside className="languages education-card" aria-labelledby="languages-heading" data-reveal data-reveal-index="3">
+            <h3 id="languages-heading"><Globe2 size={18} aria-hidden="true" /> Spoken languages</h3>
             <dl>
               {languagesData.map((item) => (
                 <div className="language-row" key={item.language}>
                   <dt>{item.language}</dt>
-                  <dd>{item.level}</dd>
+                  <dd className="value-badge">{item.level}</dd>
                 </div>
               ))}
             </dl>

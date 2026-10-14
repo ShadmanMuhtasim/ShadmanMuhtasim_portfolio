@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="dark">
+<html lang="en" class="dark no-js">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -26,17 +26,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 
     <script>
-      // Early dark-mode initialization to prevent flash
-      try {
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'light') {
-          document.documentElement.classList.remove('dark');
-        } else {
-          document.documentElement.classList.add('dark');
-        }
-      } catch (e) {
-        document.documentElement.classList.add('dark');
-      }
+      (() => {
+        let saved = null;
+        try { saved = localStorage.getItem('theme'); } catch { saved = null; }
+        const light = saved === 'light' || (saved !== 'dark' && matchMedia('(prefers-color-scheme: light)').matches);
+        const root = document.documentElement;
+        root.classList.toggle('dark', !light);
+        root.classList.replace('no-js', 'js');
+        const navigation = performance.getEntriesByType('navigation')[0];
+        if (navigation?.type === 'navigate' && !matchMedia('(prefers-reduced-motion: reduce)').matches) root.dataset.entry = 'true';
+      })();
     </script>
   </head>
   <body>

@@ -1,19 +1,27 @@
-import { useEffect, useState } from 'react';
+import { useSyncExternalStore } from 'react';
 import { Moon, Sun } from 'lucide-react';
 
-export function ThemeToggle() {
-  const [dark, setDark] = useState(() => document.documentElement.classList.contains('dark'));
+function subscribe(onChange: () => void) {
+  const observer = new MutationObserver(onChange);
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+  return () => observer.disconnect();
+}
 
-  useEffect(() => {
-    document.documentElement.classList.toggle('dark', dark);
-    try { window.localStorage.setItem('theme', dark ? 'dark' : 'light'); }
-    catch { /* The theme remains usable when persistent storage is unavailable. */ }
-  }, [dark]);
+export function ThemeToggle() {
+  const dark = useSyncExternalStore(subscribe, () => document.documentElement.classList.contains('dark'), () => null);
+
+  function toggleTheme() {
+    const next = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+    document.documentElement.dataset.themeTransitions = 'true';
+    document.documentElement.classList.toggle('dark', next === 'dark');
+    try { window.localStorage.setItem('theme', next); } catch { return; }
+  }
 
   return (
-    <button className="icon-button" type="button" onClick={() => setDark((value) => !value)}
-      aria-label={`Switch to ${dark ? 'light' : 'dark'} mode`}>
-      {dark ? <Sun size={18} aria-hidden="true" /> : <Moon size={18} aria-hidden="true" />}
+    <button className="icon-button theme-toggle" type="button" onClick={toggleTheme}
+      aria-label={dark === null ? 'Toggle color theme' : `Switch to ${dark ? 'light' : 'dark'} mode`}>
+      <Sun className="theme-icon theme-icon-sun" size={18} aria-hidden="true" />
+      <Moon className="theme-icon theme-icon-moon" size={18} aria-hidden="true" />
     </button>
   );
 }

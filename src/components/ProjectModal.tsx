@@ -1,6 +1,7 @@
 ﻿import { useEffect, useId, useRef } from 'react';
 import { ArrowUpRight, X } from 'lucide-react';
 import type { Project } from '../types';
+import { ProjectDetails } from './ProjectDetails';
 
 interface ProjectModalProps {
   project: Project | null;
@@ -30,7 +31,6 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
     const originalWidth = document.documentElement.clientWidth;
     const originalPadding = Number.parseFloat(window.getComputedStyle(body).paddingRight) || 0;
 
-    // Keep the background still while retaining its width when the scrollbar disappears.
     body.style.overflow = 'hidden';
     const scrollbarCompensation = document.documentElement.clientWidth - originalWidth;
     if (scrollbarCompensation > 0) {
@@ -69,7 +69,6 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
           window.getComputedStyle(control).visibility === 'visible'
         ));
 
-        // Native dialogs can hand Tab to browser chrome; keep both directions on their controls.
         const first = controls[0];
         const last = controls[controls.length - 1];
         const activeControl = document.activeElement;
@@ -122,22 +121,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
             </button>
           </div>
 
-          {project.role && <p className="dialog-role">Role: {project.role}</p>}
-          <p id={summaryId} className="muted">{project.summary}</p>
-
-          <div className="dialog-section">
-            <h3>Implementation</h3>
-            <ul className="detail-list">
-              {project.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}
-            </ul>
-          </div>
-
-          <div className="dialog-section">
-            <h3>Technology stack</h3>
-            <ul className="project-stack">
-              {project.stack.map((technology) => <li key={technology}>{technology}</li>)}
-            </ul>
-          </div>
+          <ProjectDetails project={project} summaryId={summaryId} />
 
           <div className="dialog-actions">
             <a className="button" href={project.githubUrl} target="_blank" rel="noopener noreferrer">
