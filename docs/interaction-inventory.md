@@ -36,4 +36,12 @@ README and Oxlint configuration inspected. No AGENTS.md, CLAUDE.md or dedicated 
 
 ## Evidence state
 
-Phase 1 safety/inventory complete. Interaction restoration and correction validation are pending. A prior flat-pass Lighthouse score or viewport check does not verify the new interactive behavior. No push, merge or deployment is authorized.
+All six correction phases are complete on `portfolio-interactive`. The new interactive production build was tested independently; prior flat-pass scores were not reused. See [interaction-validation.md](interaction-validation.md) for browser, content, accessibility, layout, performance and link evidence. No push, merge or deployment was performed.
+
+The navigation collapses below 1024px. At 1024px the measured pill, brand and right-hand actions fit without collision; all tested widths through 1920px retain that separation. Native anchors update the fragment, with header padding and section scroll margins clearing the sticky header.
+
+The no-JavaScript requirement exposed the React-only baseline's empty HTML. Vite now prerenders the existing React tree during development and production builds using the existing dependencies. Hydration enables controls; a bundle failure keeps the native menu and project disclosures available. All skills remain in the initial All panel.
+
+The restored carousel initially shrank fixed percentage tracks through `minmax(0, ...)`. Width and behavior tests caught this; explicit calculated track widths now preserve one/two-card layouts with a next-card peek. The counter reports reachable scroll positions: three on desktop, four at 390px. Its last position is clamped to the actual end.
+
+The ghost name is decorative SVG typography with the same low opacity, avoiding false text-contrast failures while remaining hidden from assistive technology. No additional interaction beyond I1-I11 was introduced.

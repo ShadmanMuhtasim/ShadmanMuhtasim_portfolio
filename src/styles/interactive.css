@@ -17,15 +17,31 @@
 .dark .theme-icon-moon { opacity: 0; transform: rotate(75deg); }
 [data-theme-transitions="true"] .theme-icon { transition: transform var(--dur-base) var(--ease-out), opacity var(--dur-base); }
 .hero { position: relative; isolation: isolate; padding-block: clamp(3rem, 6vw, 5rem) 2rem; }
+.hero-glow-clip { position: absolute; inset: 0; overflow: clip; pointer-events: none; z-index: 0; }
 .hero-sentinel { position: absolute; top: 0; left: 0; width: 1px; height: 1px; pointer-events: none; }
 .hero-watermark { display: none; position: absolute; z-index: -1; inset: 25% 0 auto; width: 100%; height: auto; text-align: center; font-size: clamp(5rem, 14vw, 15rem); font-weight: 600; letter-spacing: 0.025em; line-height: 1; opacity: 0.055; pointer-events: none; user-select: none; }
 .dark .hero-watermark { opacity: 0.045; }
-.hero-layout { grid-template-columns: minmax(0, 1fr); gap: 2rem; }
+.hero-layout { position: relative; z-index: 10; grid-template-columns: minmax(0, 1fr); gap: 2rem; }
 .hero-copy, .hero-aside { min-width: 0; }
 .hero h1 { font-size: clamp(2.25rem, 4.3vw, 3.75rem); max-width: 11ch; }
 .hero-description { font-size: clamp(1rem, 1.2vw, 1.125rem); }
 .portrait { width: min(100%, 13rem); justify-self: center; }
-.portrait-frame { border-radius: 50%; padding: 6px; border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--border)); box-shadow: 0 12px 28px rgb(0 0 0 / 13%); background: var(--surface); transition: transform var(--dur-base) var(--ease-out); }
+.portrait-spotlight { position: relative; }
+.portrait-frame {
+  --portrait-glow: 14 165 233;
+  position: relative;
+  border-radius: 50%;
+  padding: clamp(7px, 0.8vw, 10px);
+  border: 1px solid rgb(var(--portrait-glow) / 28%);
+  background: linear-gradient(155deg, rgb(var(--portrait-glow) / 18%), rgb(var(--portrait-glow) / 3%));
+  box-shadow: 0 0 30px 4px rgb(var(--portrait-glow) / 12%), 0 0 90px 20px rgb(var(--portrait-glow) / 9%);
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.dark .portrait-frame {
+  border-color: rgb(var(--portrait-glow) / 32%);
+  background: linear-gradient(155deg, rgb(var(--portrait-glow) / 24%), rgb(var(--portrait-glow) / 4%));
+  box-shadow: 0 0 36px 6px rgb(var(--portrait-glow) / 24%), 0 0 110px 28px rgb(var(--portrait-glow) / 16%);
+}
 .portrait img, .portrait-fallback { aspect-ratio: 1; border: 0; border-radius: 50%; object-position: center 26%; }
 .portrait figcaption { text-align: center; }
 .hero-aside { display: grid; gap: 1rem; }

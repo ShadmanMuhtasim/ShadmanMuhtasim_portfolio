@@ -15,7 +15,7 @@ A responsive software-engineering portfolio built with React 19, TypeScript, and
 
 - **Frontend**: React 19, TypeScript, Vite
 - **Styling**: Tailwind CSS (with custom dark theme tokens), CSS animations
-- **Interactions**: native accessible project dialogs, keyboard-friendly mobile navigation, and light/dark themes
+- **Interactions**: native scroll-snap carousel, counted keyboard skills tabs, observed pill navigation, accessible dialogs, clipboard feedback, and light/dark themes
 - **Icons**: Lucide React & Custom Brand SVG Components
 - **Hosting & Infrastructure**: Netlify with custom security headers and SPA routing
 - **CI/CD Automation**: GitHub Actions (automated quality gating, type checking, production compilation, and atomic deployment)
@@ -78,10 +78,14 @@ npm run dev
 | Command | Description |
 | :--- | :--- |
 | `npm run dev` | Starts the Vite local development server with HMR |
-| `npm run build` | Compiles TypeScript (`tsc -b`) and bundles for production (`vite build`) |
+| `npm run build` | Type-checks, bundles and prerenders the portfolio into `dist/` |
 | `npm run lint` | Runs Oxlint linter across all source files |
 | `npm test` | Placeholder command; no repository test suite is configured |
 | `npm run preview` | Locally previews the compiled production bundle from `dist/` |
+
+The existing Vite/React toolchain prerenders the complete portfolio at development time and build time. React hydrates that HTML for interactions; without JavaScript, projects use native detail disclosures and all skills remain visible. Theme preference is applied before paint, with dark as the fallback.
+
+Correction inventory and evidence: [interaction inventory](docs/interaction-inventory.md), [validation report](docs/interaction-validation.md). The local walkthrough is saved under `docs/review/` and excluded from Git.
 
 ---
 
